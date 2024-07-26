@@ -81,34 +81,12 @@ class Module_Controller extends CI_Controller
         }
         $page_data['page_name'] = 'view_module';
         $page_data['page_title'] = 'Detail View';
-        $page_data['vardefsAndViewdefs'] = json_decode(json_encode($this->fetchModuleData("GET", '/custom/module/' . $this->$config['module_name'])), true);
+        $vardefsAndViewdefs = json_decode(json_encode($this->fetchModuleData("GET", '/custom/module/' . $this->$config['module_name'])), true);
 
         $modules_data = $this->fetchModuleData("GET", $url);
         $attributesArray = json_decode(json_encode($modules_data->data->attributes), true);
-        $labels = $page_data['vardefsAndViewdefs']['labels'];
-        $detailViewDefs = $page_data['vardefsAndViewdefs']['viewdefs']['DetailView']['panels'];
-
-        $visibleFieldArray = [];   #------------------------------- THIS IS FOR CHETGPT ---------------
-        // Iterate through each section in $detailViewDefs
-        foreach ($detailViewDefs as $section) {
-            if (is_array($section)) {
-                // Iterate through each set of fields within the section
-                foreach ($section as $fields) {
-                    if (is_array($fields)) {
-                        // Check if the fields are arrays of fields
-                        foreach ($fields as $field) {
-                            if (is_array($field) && isset($field['name'])) {
-                                // Add the 'name' to the visibleFieldArray
-                                $visibleFieldArray[$field['name']] = $field['name'];
-                            } elseif (is_string($field)) {
-                                // Handle cases where fields are simple strings (like 'date_entered', 'date_modified')
-                                $visibleFieldArray[$field] = $field;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        $labels = $vardefsAndViewdefs['labels'];
+        $visibleFieldArray = $this->visibleField('DetailView');
 
         $data = '';
         foreach ($attributesArray as $key => $value) {
@@ -147,30 +125,7 @@ class Module_Controller extends CI_Controller
 
         $fields_Types_array = [];
         $fieldHtml = '';
-
-        $detailViewDefs = $vardefsAndViewdefs['viewdefs']['EditView']['panels'];
-
-        $visibleFieldArray = [];
-        // Iterate through each section in $detailViewDefs
-        foreach ($detailViewDefs as $section) {
-            if (is_array($section)) {
-                // Iterate through each set of fields within the section
-                foreach ($section as $fields) {
-                    if (is_array($fields)) {
-                        // Check if the fields are arrays of fields
-                        foreach ($fields as $field) {
-                            if (is_array($field) && isset($field['name'])) {
-                                // Add the 'name' to the visibleFieldArray
-                                $visibleFieldArray[$field['name']] = $field['name'];
-                            } elseif (is_string($field)) {
-                                // Handle cases where fields are simple strings (like 'date_entered', 'date_modified')
-                                $visibleFieldArray[$field] = $field;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        $visibleFieldArray = $this->visibleField('EditView');
 
         foreach ($vardefsAndViewdefs['vardefs'] as $fieldName => $fieldType) {
 
@@ -205,7 +160,7 @@ class Module_Controller extends CI_Controller
     public function edit()
     {
         if ($this->session->userdata('admin_login') != 1) {
-        redirect(base_url(), 'refresh');
+            redirect(base_url(), 'refresh');
         }
 
         $segments = explode('/', $_SERVER['REQUEST_URI']);
@@ -245,32 +200,8 @@ class Module_Controller extends CI_Controller
         $fields_Types_array = [];
         $fieldHtml = '';
 
+        $visibleFieldArray = $this->visibleField('EditView');
 
-        $detailViewDefs = $vardefsAndViewdefs['viewdefs']['EditView']['panels'];
-
-        $visibleFieldArray = [];
-
-
-        // Iterate through each section in $detailViewDefs
-        foreach ($detailViewDefs as $section) {
-            if (is_array($section)) {
-                // Iterate through each set of fields within the section
-                foreach ($section as $fields) {
-                    if (is_array($fields)) {
-                        // Check if the fields are arrays of fields
-                        foreach ($fields as $field) {
-                            if (is_array($field) && isset($field['name'])) {
-                                // Add the 'name' to the visibleFieldArray
-                                $visibleFieldArray[$field['name']] = $field['name'];
-                            } elseif (is_string($field)) {
-                                // Handle cases where fields are simple strings (like 'date_entered', 'date_modified')
-                                $visibleFieldArray[$field] = $field;
-                            }
-                        }
-                    }
-                }
-            }
-        }
         foreach ($vardefsAndViewdefs['vardefs'] as $fieldName => $fieldType) {
             if (!array_key_exists($fieldName,$visibleFieldArray) || $fieldName == 'id') { continue;}
             $label = isset($vardefsAndViewdefs['labels'][$fieldName]) ? $vardefsAndViewdefs['labels'][$fieldName] : ucfirst(str_replace("_", " ", $fieldName));
@@ -318,5 +249,35 @@ class Module_Controller extends CI_Controller
         }
 
         redirect(base_url() . 'index.php?Module_Controller/dashboard');
+    }
+
+    public function visibleField($view)
+    {
+        # ---------------------------START CHATGPT CODE --------------------------
+        $vardefsAndViewdefs = json_decode(json_encode($this->fetchModuleData("GET", '/custom/module/' . $this->$config['module_name'])), true);
+        $detailViewDefs = $vardefsAndViewdefs['viewdefs'][$view]['panels'];
+        $visibleFieldArray = [];
+        // Iterate through each section in $detailViewDefs
+        foreach ($detailViewDefs as $section) {
+            if (is_array($section)) {
+                // Iterate through each set of fields within the section
+                foreach ($section as $fields) {
+                    if (is_array($fields)) {
+                        // Check if the fields are arrays of fields
+                        foreach ($fields as $field) {
+                            if (is_array($field) && isset($field['name'])) {
+                                // Add the 'name' to the visibleFieldArray
+                                $visibleFieldArray[$field['name']] = $field['name'];
+                            } elseif (is_string($field)) {
+                                // Handle cases where fields are simple strings (like 'date_entered', 'date_modified')
+                                $visibleFieldArray[$field] = $field;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $visibleFieldArray;
+        # ---------------------------END CHATGPT CODE --------------------------
     }
 }
