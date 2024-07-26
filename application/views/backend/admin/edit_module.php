@@ -1,5 +1,11 @@
 <!-- Main content -->
 <div class="card" style="margin: 10px 55px 50px 50px">
+    <div class="card-footer">
+    <div class="pull-right">
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a href="index.php?Module_Controller/<?= (isset($moduleId)) ? 'view/'.$moduleId : 'dashboard' ;  ?>"><button type="button" class="btn btn-primary">Cancel</button></a>
+    </div>
+    </div>
     <!-- form start -->
     <form method="post" action="<?php if ($page_title == "Create View") { base_url('index.php?Module_Controller/create'); } else { base_url('index.php?Module_Controller/edit/'.$moduleId); } ?>">
         <div class="card-body">
