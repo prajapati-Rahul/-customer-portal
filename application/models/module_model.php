@@ -14,13 +14,13 @@ class module_model extends CI_Model {
         $this->output->set_header('Pragma: no-cache');
     }
 
-    function postApi($methodName,$url,$body = ''){
+    function postApi($methodName,$url,$bod = ''){
 
         $config['crm_url'] = 'http://localhost/Infinity/Api/V8';
         $config['api_header'] = [
                     'Accept: application/json',
                     'Content-Type: application/json',
-                    'Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhYmViMTBlZC1kNjQ3LTAzNzYtMTVkOC02NTdjMjQ2YjI3YzkiLCJqdGkiOiJlZjdlZWM5NzRiYzRkODMxZWUzMjc2ZmM3NjQ2MDFlOTc2YzQ5Nzc5YTFmMzRkZjRkODYwN2UyMjdhMTIxMTM0ZTA3YmE2OGNjYzRmZDhlMiIsImlhdCI6MTcyMTk4MjE4My40ODQ2NTIwNDIzODg5MTYwMTU2MjUsIm5iZiI6MTcyMTk4MjE4My40ODQ2NTM5NDk3Mzc1NDg4MjgxMjUsImV4cCI6MTcyMTk4NTc4My4yMjgzNzcxMDM4MDU1NDE5OTIxODc1LCJzdWIiOiIiLCJzY29wZXMiOltdfQ.JAdOUFKsyai1yfnMjxjmjApfnxLRGMRsyrj3N_o0cALFkBvUVjkc3QzilGptqyYTVPeeeqTR4prHnuXnMpJ9o11RHrLu55JJmdRo0_nasLHZ6t2kLpw_TnnQt4JT9U_6x--E4TbqmdsJaRriXcB7bi2dgNA-WKQDUAIDIyDloc9vaB91bpuumKNOG3Jqp3vTzzLuu5dz8Qu6_7HOzQQidQSpO_cn6z4nnHGM8-ZnA3FKz2BWUuUzwjTd2Jb0oScLO7gwHbGJsG12UbvoKpQ2HFxSxDD0kZaKCA-EpwiPOFzyiXPqFHNnsX2Ro2JCBpg4T434EdKUTVRqRJOjodsJsg'
+                    'Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhYmViMTBlZC1kNjQ3LTAzNzYtMTVkOC02NTdjMjQ2YjI3YzkiLCJqdGkiOiJjYjI3MzgzODk2MDdiZGUwNTNmNGIzZWM4ZTA3MjYyZTM0Zjg4MjY5M2U0M2VmNmRmMGI1YzE2ZDE2Mzg3MDk5ZmEyNGY0MWExMjMyMzNlMSIsImlhdCI6MTcyMTk4OTcyNi40ODAxMDExMDg1NTEwMjUzOTA2MjUsIm5iZiI6MTcyMTk4OTcyNi40ODAxMDMwMTU4OTk2NTgyMDMxMjUsImV4cCI6MTcyMTk5MzMyNi4xOTY1MzUxMTA0NzM2MzI4MTI1LCJzdWIiOiIiLCJzY29wZXMiOltdfQ.X1-1dCc7fRT90Y7pE-htVUPEetA5MgtG0Cb2n_r3b1b_ZXUEe_H9QjiBnvNpF36lbOVMN1I3Y6ZFjhAcHtrE4MzsM8vJlhx5qom-NpeRl-0durpPFJ7fuAQ9wG_3_rC94G_Hcs6xJPHN5vBdf3uXqcNvHdvSSnvbATNsJqe3U7-icUCibLtLSVIV2XvJfxtgpWPq95MfUNQd8IrPuE9h-me_GAJ8C-XZjXveLh2a__LH7tr4ngzfgvFac-UU66krCE88Q_LLsH4I4fEHVd8wTcLN4WutvRUzcXyGlO-A3Bf5276qg85BdAKGzYpmFi9KushFeDMkfXbSOdr0carafQ'
                 ];
         if(empty($url)) {
             return array("error" => "API configuration missing, Kindly contact technical team!");
@@ -28,7 +28,7 @@ class module_model extends CI_Model {
 
         // echo "<pre>";print_r($config.'<br>'.$url.'<br>'.$body.'<br>'.$methodName);die();
 
-        
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => $config['crm_url'].$url,

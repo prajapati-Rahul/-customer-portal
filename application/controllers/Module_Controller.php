@@ -129,8 +129,10 @@ class Module_Controller extends CI_Controller
             ];
             $module_id = $this->fetchModuleData("POST", $url, $body)->data->id;
             if (empty($module_id)) {
+                $this->session->set_flashdata('flash_error_message' , 'create error...');
                 redirect(base_url() . 'index.php?Module_Controller/dashboard');
             }
+            $this->session->set_flashdata('flash_message' , get_phrase('Record created...'));
             redirect(base_url() . 'index.php?Module_Controller/view/' . $module_id);
         }
 
@@ -208,7 +210,10 @@ class Module_Controller extends CI_Controller
             $responseId = $this->fetchModuleData("PATCH", $url, $body)->data->id;
                     // echo "<pre>";print_r($responseId);die();
             if (!empty($responseId)) {
+                $this->session->set_flashdata('flash_message' , get_phrase('Record updated...'));
                 redirect(base_url() . 'index.php?Module_Controller/view/' . $module_id);
+            }else{
+                $this->session->set_flashdata('flash_error_message' , 'updated error...');
             }
             redirect(base_url() . 'index.php?Module_Controller/dashboard');
         }
@@ -277,7 +282,12 @@ class Module_Controller extends CI_Controller
         if ($this->session->userdata('admin_login') != 1) {
             redirect(base_url(), 'refresh');
         }
-        $this->fetchModuleData("DELETE", $url);
+        $response = $this->fetchModuleData("DELETE", $url);
+        if (empty($response->data)){
+            $this->session->set_flashdata('flash_message' , get_phrase('Record deleted...'));
+        }else{
+            $this->session->set_flashdata('flash_error_message' , 'Deleting error...');
+        }
 
         redirect(base_url() . 'index.php?Module_Controller/dashboard');
     }

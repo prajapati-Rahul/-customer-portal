@@ -43,6 +43,15 @@
 
 <?php endif;?>
 
+<!-- SHOW TOASTR NOTIFIVATION -->
+<?php if ($this->session->flashdata('flash_error_message') != ""):?>
+
+<script type="text/javascript">
+	toastr.error('<?php echo $this->session->flashdata("flash_error_message");?>');
+</script>
+
+<?php endif;?>
+
 
 <!-----  DATA TABLE EXPORT CONFIGURATIONS ----->                      
 <script type="text/javascript">
