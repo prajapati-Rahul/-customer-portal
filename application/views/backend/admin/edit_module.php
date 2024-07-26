@@ -12,6 +12,7 @@
         <!-- /.card-body -->
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Save</button>
+            <a href="index.php?Module_Controller/<?= (isset($moduleId)) ? 'view/'.$moduleId : 'dashboard' ;  ?>"><button type="button" class="btn btn-primary">Cancel</button></a>
         </div>
     </form>
 </div>

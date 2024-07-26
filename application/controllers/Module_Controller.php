@@ -88,14 +88,21 @@ class Module_Controller extends CI_Controller
         $labels = $page_data['vardefsAndViewdefs']['labels'];
         $detailViewDefs = $page_data['vardefsAndViewdefs']['viewdefs']['DetailView']['panels'];
 
-        $visibleFieldArray = [];
-        foreach ($detailViewDefs as $value) {
-            if (!empty($value) && is_array($value)) {
-                foreach ($value as $val) {
-                    if (!empty($val) && is_array($val)) {
-                        foreach ($val as $main) {
-                            if (isset($main['name'])) {
-                                $visibleFieldArray[$main['name']] = $main['name'];
+        $visibleFieldArray = [];   #------------------------------- THIS IS FOR CHETGPT ---------------
+        // Iterate through each section in $detailViewDefs
+        foreach ($detailViewDefs as $section) {
+            if (is_array($section)) {
+                // Iterate through each set of fields within the section
+                foreach ($section as $fields) {
+                    if (is_array($fields)) {
+                        // Check if the fields are arrays of fields
+                        foreach ($fields as $field) {
+                            if (is_array($field) && isset($field['name'])) {
+                                // Add the 'name' to the visibleFieldArray
+                                $visibleFieldArray[$field['name']] = $field['name'];
+                            } elseif (is_string($field)) {
+                                // Handle cases where fields are simple strings (like 'date_entered', 'date_modified')
+                                $visibleFieldArray[$field] = $field;
                             }
                         }
                     }
@@ -144,13 +151,20 @@ class Module_Controller extends CI_Controller
         $detailViewDefs = $vardefsAndViewdefs['viewdefs']['EditView']['panels'];
 
         $visibleFieldArray = [];
-        foreach ($detailViewDefs as $value) {
-            if (!empty($value) && is_array($value)) {
-                foreach ($value as $val) {
-                    if (!empty($val) && is_array($val)) {
-                        foreach ($val as $main) {
-                            if (isset($main['name'])) {
-                                $visibleFieldArray[$main['name']] = $main['name'];
+        // Iterate through each section in $detailViewDefs
+        foreach ($detailViewDefs as $section) {
+            if (is_array($section)) {
+                // Iterate through each set of fields within the section
+                foreach ($section as $fields) {
+                    if (is_array($fields)) {
+                        // Check if the fields are arrays of fields
+                        foreach ($fields as $field) {
+                            if (is_array($field) && isset($field['name'])) {
+                                // Add the 'name' to the visibleFieldArray
+                                $visibleFieldArray[$field['name']] = $field['name'];
+                            } elseif (is_string($field)) {
+                                // Handle cases where fields are simple strings (like 'date_entered', 'date_modified')
+                                $visibleFieldArray[$field] = $field;
                             }
                         }
                     }
@@ -172,6 +186,8 @@ class Module_Controller extends CI_Controller
                 }
                 $fieldHtml .= '</select>';
                 $fieldHtml .= '</div>';
+            } elseif($fieldType['type'] == 'datetime' || $fieldType['type'] == 'date') {
+                $fieldHtml = '<div class="form-group" style="width:50%"><label for="' . $fieldName . '">' . $label . ':</label><input type="date" class="form-control" id="' . $fieldName . '" name="' . $fieldName . '"></div>';
             } else {
                 $fieldHtml = '<div class="form-group" style="width:50%"><label for="' . $fieldName . '">' . $label . ':</label><input type="text" class="form-control" id="' . $fieldName . '" name="' . $fieldName . '"></div>';
             }
@@ -233,13 +249,22 @@ class Module_Controller extends CI_Controller
         $detailViewDefs = $vardefsAndViewdefs['viewdefs']['EditView']['panels'];
 
         $visibleFieldArray = [];
-        foreach ($detailViewDefs as $value) {
-            if (!empty($value) && is_array($value)) {
-                foreach ($value as $val) {
-                    if (!empty($val) && is_array($val)) {
-                        foreach ($val as $main) {
-                            if (isset($main['name'])) {
-                                $visibleFieldArray[$main['name']] = $main['name'];
+
+
+        // Iterate through each section in $detailViewDefs
+        foreach ($detailViewDefs as $section) {
+            if (is_array($section)) {
+                // Iterate through each set of fields within the section
+                foreach ($section as $fields) {
+                    if (is_array($fields)) {
+                        // Check if the fields are arrays of fields
+                        foreach ($fields as $field) {
+                            if (is_array($field) && isset($field['name'])) {
+                                // Add the 'name' to the visibleFieldArray
+                                $visibleFieldArray[$field['name']] = $field['name'];
+                            } elseif (is_string($field)) {
+                                // Handle cases where fields are simple strings (like 'date_entered', 'date_modified')
+                                $visibleFieldArray[$field] = $field;
                             }
                         }
                     }
@@ -262,6 +287,9 @@ class Module_Controller extends CI_Controller
                 $fieldHtml .= '</div>';
 
                 $fields_Types_array[$fieldName] = $fieldHtml;
+            }elseif($fieldType['type'] == 'datetime' || $fieldType['type'] == 'date') {
+                $value = isset($attributesArray[$fieldName]) ? $attributesArray[$fieldName] : '';
+                $fields_Types_array[$fieldName] = '<div class="form-group" style="width:50%"><label for="' . $fieldName . '">' . $label . ':</label><input type="date" class="form-control" id="' . $fieldName . '" name="' . $fieldName . '" value="' . $value . '"></div>';
             } else {
                 $value = isset($attributesArray[$fieldName]) ? $attributesArray[$fieldName] : '';
                 $fields_Types_array[$fieldName] = '<div class="form-group" style="width:50%"><label for="' . $fieldName . '">' . $label . ':</label><input type="text" class="form-control" id="' . $fieldName . '" name="' . $fieldName . '" value="' . $value . '"></div>';

@@ -23,21 +23,6 @@
 <link rel="stylesheet" href="assets/js/vertical-timeline/css/component.css">
 <link rel="stylesheet" href="assets/js/datatables/responsive/css/datatables.responsive.css">
 
-
-<!--Amcharts-->
-<script src="<?php echo base_url();?>assets/js/amcharts/amcharts.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/amcharts/pie.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/amcharts/serial.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/amcharts/gauge.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/amcharts/funnel.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/amcharts/radar.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/amcharts/exporting/amexport.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/amcharts/exporting/rgbcolor.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/amcharts/exporting/canvg.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/amcharts/exporting/jspdf.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/amcharts/exporting/filesaver.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>assets/js/amcharts/exporting/jspdf.plugin.addimage.js" type="text/javascript"></script>
-
 <script>
     function checkDelete()
     {
