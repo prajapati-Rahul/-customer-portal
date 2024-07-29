@@ -14,13 +14,13 @@ class module_model extends CI_Model {
         $this->output->set_header('Pragma: no-cache');
     }
 
-    function postApi($methodName,$url,$bod = ''){
+    function postApi($methodName,$url,$body = ''){
 
         $config['crm_url'] = 'http://localhost/Infinity/Api/V8';
         $config['api_header'] = [
                     'Accept: application/json',
                     'Content-Type: application/json',
-                    'Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhYmViMTBlZC1kNjQ3LTAzNzYtMTVkOC02NTdjMjQ2YjI3YzkiLCJqdGkiOiI5MWFhYzIwZDBiZjU5NmM2NTczMTdjNTUwMjAyM2VmNWFiZThmNTkxMjAyYjQ1ODlmYTg2OWVmNzdlMjczYTkzNTlhZWIzYmU2MTcyMDlhZSIsImlhdCI6MTcyMjAwMDg4OC4yNzkxMDgwNDc0ODUzNTE1NjI1LCJuYmYiOjE3MjIwMDA4ODguMjc5MTEwOTA4NTA4MzAwNzgxMjUsImV4cCI6MTcyMjAwNDQ4OC4wMTcyMDMwOTI1NzUwNzMyNDIxODc1LCJzdWIiOiIiLCJzY29wZXMiOltdfQ.FPnpKxRiEcFczFOROHOUFY6QFSwRWAruAM8H9riYspEo9hMf5kTfCYXG15sfY5Jec9WC6XyGS_WHX94E150VAbiXtsiwCw18CDm8yIABUf5490QCWYj4BHwFHnbKPpFw8sSOZDuXCBlrhBcDswNbD6qsR8rs1UxYJLNb67rRK1CqvgFIfiK_e9ZbCVXqWS4iXWWfAlKqCgyRrYTSkoCfKKrK_9mI1L3Xu7OF1-INJWAyh8MDeLTgOWUNxDNtkC15kPaOPrJoQ_zMeOGjTY0RRJugp3y-LU5Q_AwmSKeFPUFShzP8zz6wjCHicZYrbvliUTCfqebMHXdIODi3NSl5-g'
+                    'Authorization: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiJhYmViMTBlZC1kNjQ3LTAzNzYtMTVkOC02NTdjMjQ2YjI3YzkiLCJqdGkiOiI5YzQwNDIxNDlmMWFmN2EzMzMyYTc3MDkxYzdlZmE3YzdjYmFkY2U2MTJlZmRkNmNlYzgzY2IxYTJjNWM1OTNlNDExNzllNDZkZWY1NzY5YiIsImlhdCI6MTcyMjIzNjk1My44NzI3NzI5MzIwNTI2MTIzMDQ2ODc1LCJuYmYiOjE3MjIyMzY5NTMuODcyNzc1MDc3ODE5ODI0MjE4NzUsImV4cCI6MTcyMjI0MDU1MS4wMDYyMzcwMzAwMjkyOTY4NzUsInN1YiI6IiIsInNjb3BlcyI6W119.DWKekorfkK-C6JBoD8Hi1RZECf5Ll-ML_Vi0Oo8wRAXJx7EkifU701d8AQZs2B3dorR99OfEep54KkPY0ATHGlz7-F7fDDHKEM7ZDQh0EmfIjMN8-cHbmhgGgjSaNAErbkWMK5KDxoFKwbvGu3efb2_YVIevxbkK5enpJXeKg0VkzmtxdACQoYHXuTLOEPjfyLx8P07Nr6Kqu__dzFXYKDTJ_vLd4lRXiThA8p11AIKusqP6jgma04cw3SQUmGKwiS7DiKRvvXwqFZ-PJ3KsHSDW66IUgyCehV4a7DXJaEVNFyC-nnrrmKQEJgv8EuUIf0HRODHRmJgikx5gdC2-tQ'
                 ];
         if(empty($url)) {
             return array("error" => "API configuration missing, Kindly contact technical team!");

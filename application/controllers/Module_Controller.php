@@ -14,7 +14,7 @@ class Module_Controller extends CI_Controller
         // Cache control
         $this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
         $this->output->set_header('Pragma: no-cache');
-        $this->$config['module_name'] = 'Opportunities';
+        $this->$config['module_name'] = 'Contacts';
     }
 
     // Default function, redirects to login page if no admin logged in yet
@@ -64,6 +64,7 @@ class Module_Controller extends CI_Controller
     private function fetchModuleData($methodName = '', $url = '', $body = '')
     {     
 
+        // echo "<pre>";print_r($body);die();
         // echo "<pre>";print_r($url.'<br>'.$body.'<br>'.$methodName);die();
 
         return $this->module_model->postApi($methodName,$url,$body);
@@ -143,6 +144,8 @@ class Module_Controller extends CI_Controller
                 $fieldHtml .= '</div>';
             } elseif($fieldType['type'] == 'datetime' || $fieldType['type'] == 'date') {
                 $fieldHtml = '<div class="form-group" style="width:50%"><label for="' . $fieldName . '">' . $label . ':</label><input type="date" class="form-control" id="' . $fieldName . '" name="' . $fieldName . '"></div>';
+            } elseif($fieldType['type'] == 'bool') {
+                $fieldHtml = '<div class="form-group" style="width:50%"><label for="' . $fieldName . '">' . $label . ':</label><input type="radio" class="form-control" id="' . $fieldName . '" name="' . $fieldName . '"></div>';
             } else {
                 $fieldHtml = '<div class="form-group" style="width:50%"><label for="' . $fieldName . '">' . $label . ':</label><input type="text" class="form-control" id="' . $fieldName . '" name="' . $fieldName . '"></div>';
             }

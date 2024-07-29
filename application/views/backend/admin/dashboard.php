@@ -54,9 +54,9 @@
                     <tr>
                         <th><div>#</div></th>
                     <?php foreach ($modules_key as $colName) { if ($colName == 'id'){ continue; } ?>
-                        <th><div><?= $colName; ?></div></th>
+                        <th><div><?= ucfirst(str_replace("_", " ", $colName)); ?></div></th>
                     <?php } ?>
-                        <th><div>action</div></th>
+                        <th><div>ACTION</div></th>
                     </tr>
                 </thead>
                 <tbody>
